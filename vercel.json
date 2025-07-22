@@ -1,0 +1,11 @@
+{
+  "functions": {
+    "api/submit.js": {
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "MONGODB_URI": "@mongodb_uri",
+    "DB_NAME": "@db_name"
+  }
+} 

@@ -6,7 +6,20 @@ import 'dotenv/config';
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+// CORS configuration
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://community.therebel.co.in',
+    'https://rebel-prelaunch.vercel.app',
+    'https://the-rebel-prelaunch.vercel.app'
+  ],
+  methods: ['POST', 'GET', 'OPTIONS'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 const uri = process.env.MONGODB_URI;

@@ -220,7 +220,11 @@ function SignupForm() {
     }
 
     try {
-      const response = await fetch('/api/submit', {
+      // For production, use the same domain as the frontend (Vercel serverless function)
+      // For development, use localhost:3000
+      const isDevelopment = import.meta.env.DEV;
+      const API_URL = isDevelopment ? 'http://localhost:3000' : '';
+      const response = await fetch(`${API_URL}/api/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

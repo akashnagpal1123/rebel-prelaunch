@@ -192,7 +192,7 @@
 
 // export default SignupForm;
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function SignupForm() {
   const [formData, setFormData] = useState({
@@ -203,6 +203,38 @@ function SignupForm() {
   });
   const [responseMessage, setResponseMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [subscriberCount, setSubscriberCount] = useState(0);
+  const [isLoadingCount, setIsLoadingCount] = useState(true);
+  const [showCountAnimation, setShowCountAnimation] = useState(false);
+
+  // Fetch subscriber count on component mount
+  useEffect(() => {
+    const fetchSubscriberCount = async () => {
+      try {
+        const isDevelopment = import.meta.env.DEV;
+        const API_URL = isDevelopment ? 'http://localhost:3000' : '';
+        console.log('🔍 Fetching subscriber count from:', `${API_URL}/api/subscriber-count`);
+        
+        const response = await fetch(`${API_URL}/api/subscriber-count`);
+        const data = await response.json();
+        
+        console.log('📊 Subscriber count response:', data);
+        
+        if (response.ok) {
+          setSubscriberCount(data.count);
+          console.log('✅ Subscriber count set to:', data.count);
+        } else {
+          console.error('❌ Error response:', response.status, data);
+        }
+      } catch (error) {
+        console.error('❌ Error fetching subscriber count:', error);
+      } finally {
+        setIsLoadingCount(false);
+      }
+    };
+
+    fetchSubscriberCount();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -237,6 +269,15 @@ function SignupForm() {
       if (response.ok) {
         setResponseMessage(data.message);
         setFormData({ name: '', email: '', mobile: '', message: '' });
+        
+        // Update subscriber count and trigger animation
+        setSubscriberCount(prevCount => prevCount + 1);
+        setShowCountAnimation(true);
+        
+        // Hide animation after 2 seconds
+        setTimeout(() => {
+          setShowCountAnimation(false);
+        }, 2000);
       } else {
         setResponseMessage(data.message || 'An error occurred.');
       }
@@ -303,7 +344,8 @@ function SignupForm() {
           <h2 className="text-2xl md:text-3xl font-serif mb-6 md:mb-8 text-center bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent animate-pulse">
             Join the waitlist
           </h2>
-          
+        
+  
           <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
             <div className="relative group">
               <input
@@ -376,6 +418,19 @@ function SignupForm() {
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
           </form>
+          
+          {/* Styled Subscriber Count Display */}
+          <div className="mt-6 md:mt-8 text-center">
+            <div className="relative inline-block">
+              <div className="text-gray-400 text-sm md:text-base mb-2">
+                Join <span className={`text-teal-400 font-semibold transition-all duration-300 ${showCountAnimation ? 'scale-110' : 'scale-100'}`}>
+                  {isLoadingCount ? '...' : subscriberCount}
+                </span> rebels on the waitlist
+              </div>
+              
+
+            </div>
+          </div>
           
           {responseMessage && (
             <div className="mt-4 md:mt-6 p-3 md:p-4 rounded-xl bg-gray-800/70 border border-gray-600 animate-fade-in">

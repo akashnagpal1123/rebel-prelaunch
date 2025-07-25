@@ -133,6 +133,22 @@ async function run() {
       }
     });
 
+    // GET endpoint to fetch subscriber count
+    app.get('/api/subscriber-count', async (req, res) => {
+      try {
+        const db = client.db(process.env.DB_NAME);
+        const subscribers = db.collection('subscribers');
+
+        const count = await subscribers.countDocuments();
+
+        res.status(200).json({ count });
+
+      } catch (err) {
+        console.error('❌ MongoDB count error:', err);
+        res.status(500).json({ message: 'Error getting subscriber count.' });
+      }
+    });
+
     app.listen(port, () => {
       console.log(`🚀 Server running on http://localhost:${port}`);
     });

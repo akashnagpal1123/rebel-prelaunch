@@ -10,9 +10,9 @@ function HeroSection() {
     };
 
     return (
-      <section className="relative min-h-screen flex flex-col items-center justify-center text-center text-white px-4">
+      <section className="relative min-h-screen flex flex-col items-center justify-center text-center text-white px-4 w-full">
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
-        <div className="relative z-10 max-w-4xl mx-auto">
+        <div className="relative z-10 max-w-4xl mx-auto w-full">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-widest mb-4 md:mb-6">
             THE REBEL
           </h1>

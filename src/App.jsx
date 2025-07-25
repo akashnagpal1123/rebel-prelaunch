@@ -4,19 +4,26 @@ import SignupForm from './components/SignupForm';
 import Footer from './components/Footer';
 
 function App() {
-  const appStyle = {
-    backgroundImage: `url('/images/bg_img (1).png')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
-  };
-
   return (
-    <div style={appStyle}>
-      <HeroSection />
-      <StorySection />
-      <SignupForm />
-      <Footer />
+    <div className="relative min-h-screen">
+      {/* Background Image Container */}
+      <div 
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: `url('/images/bg_img (1).png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      
+      {/* Content */}
+      <div className="relative z-10">
+        <HeroSection />
+        <StorySection />
+        <SignupForm />
+        <Footer />
+      </div>
     </div>
   );
 }

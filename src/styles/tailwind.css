@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* iOS Safari fixes */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Fix for iOS Safari viewport issues */
+  @supports (-webkit-touch-callout: none) {
+    .min-h-screen {
+      min-height: -webkit-fill-available;
+    }
+    
+    /* Additional iOS Safari fixes */
+    body {
+      min-height: -webkit-fill-available;
+    }
+    
+    /* Fix for background image issues on iOS */
+    .fixed {
+      position: fixed;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+  }
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;

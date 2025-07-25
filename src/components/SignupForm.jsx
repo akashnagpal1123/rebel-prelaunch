@@ -206,6 +206,7 @@ function SignupForm() {
   const [subscriberCount, setSubscriberCount] = useState(0);
   const [isLoadingCount, setIsLoadingCount] = useState(true);
   const [showCountAnimation, setShowCountAnimation] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Fetch subscriber count on component mount
   useEffect(() => {
@@ -274,6 +275,9 @@ function SignupForm() {
         setSubscriberCount(prevCount => prevCount + 1);
         setShowCountAnimation(true);
         
+        // Show thank you message and hide form
+        setIsSubmitted(true);
+        
         // Hide animation after 2 seconds
         setTimeout(() => {
           setShowCountAnimation(false);
@@ -340,13 +344,15 @@ function SignupForm() {
       </div> */}
       
       <div className="container mx-auto max-w-sm md:max-w-md lg:max-w-lg relative z-10">
-        <div className="bg-gray-900/90 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-2xl border border-gray-700/50 hover:shadow-teal-500/20 transition-all duration-500 transform hover:scale-105">
-          <h2 className="text-2xl md:text-3xl font-serif mb-6 md:mb-8 text-center bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent animate-pulse">
-            Join the waitlist
-          </h2>
+        <div className={`bg-gray-900/90 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-2xl border border-gray-700/50 hover:shadow-teal-500/20 transition-all duration-700 transform ${!isSubmitted ? 'hover:scale-105' : 'scale-105'}`}>
+          
+          {!isSubmitted ? (
+            <>
+              <h2 className="text-2xl md:text-3xl font-serif mb-6 md:mb-8 text-center bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent animate-pulse">
+                Join the waitlist
+              </h2>
         
-  
-          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
             <div className="relative group">
               <input
                 type="text"
@@ -427,14 +433,46 @@ function SignupForm() {
                   {isLoadingCount ? '...' : subscriberCount}
                 </span> rebels on the waitlist
               </div>
-              
-
             </div>
           </div>
           
           {responseMessage && (
             <div className="mt-4 md:mt-6 p-3 md:p-4 rounded-xl bg-gray-800/70 border border-gray-600 animate-fade-in">
               <p className="text-center text-xs md:text-sm">{responseMessage}</p>
+            </div>
+          )}
+            </>
+          ) : (
+            /* Thank You Message - Full Form Space */
+            <div className="text-center py-8 md:py-12">
+              <div className="mb-6 md:mb-8">
+                {/* Success Icon */}
+                <div className="mx-auto w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-teal-400 to-purple-400 rounded-full flex items-center justify-center mb-4 md:mb-6">
+                  <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                
+                {/* Thank You Text */}
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">
+                  Thank You!
+                </h2>
+                
+                <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-8">
+                  Welcome to the rebellion! 🎉
+                </p>
+                
+                <p className="text-sm md:text-base text-gray-400 mb-8 md:mb-10">
+                  You're now part of <span className="text-teal-400 font-semibold">{subscriberCount}</span> rebels on the waitlist.
+                </p>
+                
+                {/* Decorative Elements */}
+                <div className="flex justify-center items-center space-x-3">
+                  <div className="w-3 h-3 bg-teal-400 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="w-3 h-3 bg-teal-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                </div>
+              </div>
             </div>
           )}
         </div>

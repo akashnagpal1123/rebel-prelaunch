@@ -37,7 +37,7 @@ function Footer() {
                 
                 {/* Instagram */}
                 <a 
-                  href="https://therebel.co.in" 
+                  href="#" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-800 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 rounded-full flex items-center justify-center transition-all duration-300 group"
@@ -49,7 +49,7 @@ function Footer() {
                 
                 {/* Twitter */}
                 <a 
-                  href="https://therebel.co.in" 
+                  href="#" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-800 hover:bg-blue-500 rounded-full flex items-center justify-center transition-all duration-300 group"
@@ -61,7 +61,7 @@ function Footer() {
                 
                 {/* WhatsApp */}
                 <a 
-                  href="https://therebel.co.in" 
+                  href="#" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition-all duration-300 group"

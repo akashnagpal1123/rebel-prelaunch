@@ -430,7 +430,7 @@ function SignupForm() {
             <div className="relative inline-block">
               <div className="text-gray-400 text-sm md:text-base mb-2">
                 Join <span className={`text-teal-400 font-semibold transition-all duration-300 ${showCountAnimation ? 'scale-110' : 'scale-100'}`}>
-                  {isLoadingCount ? '...' : subscriberCount}
+                  {isLoadingCount ? '...' : subscriberCount+100}
                 </span> rebels on the waitlist
               </div>
             </div>

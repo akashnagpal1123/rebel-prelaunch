@@ -463,7 +463,7 @@ function SignupForm() {
                 </p>
                 
                 <p className="text-sm md:text-base text-gray-400 mb-8 md:mb-10">
-                  You're now part of <span className="text-teal-400 font-semibold">{subscriberCount}</span> rebels on the waitlist.
+                  You're now part of <span className="text-teal-400 font-semibold">{subscriberCount+100}</span> rebels on the waitlist.
                 </p>
                 
                 {/* Decorative Elements */}
